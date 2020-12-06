@@ -14,6 +14,7 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
 
+	
 </head>
 
 <body>
@@ -22,8 +23,8 @@
         <nav>
           <div class="title">Public Housing Grocery Access</div>
           <ul>
-			<li><a id = "storybutton" class = "active" href="#">Story</a></li>
-			<li><a id = "mapbutton" class="inactive" href="#">Map</a></li>
+			<li><a id = "storybutton" class = "active" href="#">Map</a></li>
+			<li><a id = "methodbutton" class="inactive" href="#">Method</a></li>
           </ul>
         </nav>
     </div>   
@@ -32,7 +33,7 @@
 		<div id="storymap"></div></div>
 	<div id="centerdiv" >
 		<div>
-			<h1>Grocery Store Accessibility for Public Housing Developments in NYC<br><br><span style = "font-size: 12px;">scroll through the story</span></h1>
+			<h1>Grocery Store Accessibility for Public Housing Developments in NYC<br><br><span style = "font-size: 12px;">scroll through the story • drag to pan map</span></h1>
 		</div>
 	</div>
 	<div id="storytext">
@@ -44,28 +45,27 @@
 			<p>Specifically, what does accessibility look like for the 564,301 people in public housing developments? (data from NYC Open Data and https://www1.nyc.gov/assets/nycha/downloads/pdf/NYCHA-Fact-Sheet_2019_08-01.pdf) <br><br> Significance, etc</p>
 		</div>
 		<div id="div4">
-			<p><span>Time</span><br><br>How many grocery stores are there within a 10, 20, and 30 minute radius from the center of a public housing development? </p>
+			<p><span>Time</span><br><br>How many grocery stores are there within a 10, 20, and 30 minute walk from the center of a public housing development? </p>
 		</div>
 		<div id="div5">
-			<p>Zoom to public housing development with lots of grocery stores nearby</p>
+			<p>This public housing development in Lower East Side, Manhattan has access to:<br><br>20 grocery stores within a 10 minute walk<br>50 grocery stores between 10 to 20 minute walk<br>64 grocery stores between a 20 to 30 minute walk<br><br>This is a total of 134 grocery stores in a thirty minute radius.</li></p>
 		</div>
 		<div id="div6">
-			<p>Zoom to public housing development with bad access</p>
+			<p>This public housing development in Dongan Hills, Staten Island has access to:<br><br>0 grocery stores within a 30 minute walk</p>
 		</div>
 		<div id="div7">
 			<p>Graph?</p>
 		</div>
 		<div id="div8">
-			<p>Scale<br><br>Sales volume scoring method and results</p>
+			<p>Scoring<br><br>Count Score: percentile of grocery stores within ten min radius<br>Time Score: percentile of average time to all grocery stores within 30 min radius<br><br><span style = "font-size: 11px">click on circles for more information</span></p>
+			<button id="countbutton" class="buttonactive">Count Score</button>
+			<button id="timebutton" class="button">Time Score</button>
 		</div>
 		<div id="div9">
-			<p>Zoom to large grocery stores vs small grocery stores</p>
+			<p>Limitations<br><br>The Breukelen Houses in Brooklyn have a total area of 2,830,416 square feet which mostly covers the ten minute radius.<br><br>Time to grocery store is not the only reason why people choose one grocery store over another - size of grocery store, what kind of groceries they sell</p>
 		</div>
 		<div id="div10">
-			<p>Final map with colored markers<br><br>Number of grocery stores within each radius and scale of grocery stores are aggregated to produce a score that determines the color of the marker<br><br>Link to map page</p>
-		</div>
-		<div id="div11">
-			<p>Limitations<br><br>Zoom to largest public housing development > differences in distance to grocery stores from one end of the development to another.<br><br> Scale of a grocery store is not the only reason why people choose one grocery store over another.<br><br>Next Steps</p>
+			<p>Next Steps<br><br>alsdkjflaksdjf</p>
 		</div>
 	</div>
 

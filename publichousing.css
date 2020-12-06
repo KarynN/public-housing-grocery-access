@@ -87,10 +87,10 @@ nav {
 	}
 
 nav .title {
-	font-weight: 600;
+	font-weight: 100;
 	color:black;
 	padding: 22px 0px;
-	height: 80px;
+	height: 60px;
 	float: left;
 	font-size: 20px;
 	}
@@ -120,4 +120,30 @@ nav ul li a.active{
 	}
 nav ul li a.inactive{
 	border: 0px;
+	}
+
+
+.button {
+	min-width: 90px;
+	min-height: 40px;
+	padding: 4px 4px;
+	cursor: pointer;
+	text-align: center;
+	background: #fff;
+	font-size: 12px;
+	border: 2px solid white;
+	text-decoration: none;
+	color: #000
+	}
+
+.buttonactive {
+	min-width: 90px;
+	min-height: 40px;
+	padding: 4px 4px;
+	cursor: pointer;
+	text-align: center;
+	background: #fff;
+	color: #000;
+	font-size: 12px;
+	border: 2px solid black;
 	}
