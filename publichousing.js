@@ -15,7 +15,7 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
 
 
 var storymap = new L.Map("storymap",  { scrollWheelZoom: false })
-.setView(new L.LatLng(40.758700379161006, -73.75652770996094), 11)
+.setView(new L.LatLng(40.738700379161006, -73.77652770996094), 11)
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
 {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://cartodb.com/attributions">CartoDB</a>',
@@ -97,6 +97,119 @@ d3.csv("data/grocery-2020.csv")
 })
 
 
+
+
+
+d3.json("data/lower_east.geojson")
+.then(function(data) {
+
+  var lowereastgeojson = data.features
+  var lowereastlayer = new Array();
+
+  new ScrollMagic.Scene({triggerElement: "#div5"})
+    .on("enter", function (event) { 
+      for (i = 0; i < 3; i++) {
+        var lowereastiso = L.geoJSON(lowereastgeojson[i], {
+          color: "royalblue",
+          opacity: 0.6,
+          weight: 0.4,
+          fillOpacity: 0.1,
+          fillColor: "royalblue",
+          zIndex: 100
+        })
+      lowereastlayer.push(lowereastiso);
+      storymap.addLayer(lowereastlayer[i]);}
+      })
+    .on("leave", function (event) { 
+      for (i = 0; i < 3; i++) {storymap.removeLayer(lowereastlayer[i])}
+    }).addTo(controller);
+
+  new ScrollMagic.Scene({triggerElement: "#div6"})
+    .on("enter", function (event) { 
+      for (i = 0; i < 3; i++) {storymap.removeLayer(lowereastlayer[i])}
+    })
+    .on("leave", function (event) { 
+      for (i = 0; i < 3; i++) {storymap.addLayer(lowereastlayer[i])}
+    }).addTo(controller);
+})
+
+d3.json("data/berry.geojson")
+.then(function(data) {
+
+  var berrygeojson = data.features
+  var berrylayer = new Array();
+
+  new ScrollMagic.Scene({triggerElement: "#div6"})
+    .on("enter", function (event) { 
+      for (i = 0; i < 3; i++) {
+        var berryiso = L.geoJSON(berrygeojson[i], {
+          color: "royalblue",
+          opacity: 0.6,
+          weight: 0.4,
+          fillOpacity: 0.1,
+          fillColor: "royalblue",
+          zIndex: 100
+        })
+      berrylayer.push(berryiso);
+      storymap.addLayer(berrylayer[i]);}
+      })
+    .on("leave", function (event) { 
+      for (i = 0; i < 3; i++) {storymap.removeLayer(berrylayer[i])}
+    }).addTo(controller);
+
+  new ScrollMagic.Scene({triggerElement: "#div7"})
+    .on("enter", function (event) { 
+      for (i = 0; i < 3; i++) {storymap.removeLayer(berrylayer[i])}
+    })
+    .on("leave", function (event) { 
+      for (i = 0; i < 3; i++) {storymap.addLayer(berrylayer[i])}
+    }).addTo(controller);
+})
+
+d3.json("data/largest.geojson")
+.then(function(data) {
+  var largestgeojson = data.features[0]
+  var largestlayer = L.geoJSON(largestgeojson, {
+    color: "palevioletred",
+    weight: 2,
+    fillOpacity: 0.3,
+    fillColor: "palevioletred"
+  })
+  new ScrollMagic.Scene({triggerElement: "#div9"})
+    .on("enter", function (event) { 
+    storymap.addLayer(largestlayer)})
+    .on("leave", function (event) { 
+      storymap.removeLayer(largestlayer)
+    }).addTo(controller);
+})
+
+d3.json("data/breukelen.geojson")
+.then(function(data) {
+
+  var breukelengeojson = data.features
+  var breukelenlayer = new Array();
+
+  new ScrollMagic.Scene({triggerElement: "#div9"})
+    .on("enter", function (event) { 
+      for (i = 0; i < 3; i++) {
+        var breukeleniso = L.geoJSON(breukelengeojson[i], {
+          color: "royalblue",
+          opacity: 0.6,
+          weight: 0.4,
+          fillOpacity: 0.1,
+          fillColor: "royalblue",
+          zIndex: 100
+        })
+      breukelenlayer.push(breukeleniso);
+      storymap.addLayer(breukelenlayer[i]);}
+      })
+    .on("leave", function (event) { 
+      for (i = 0; i < 3; i++) {storymap.removeLayer(breukelenlayer[i])}
+    }).addTo(controller);
+})
+
+
+
 d3.csv("data/nycha_percentiles_joined.csv")
 .then(function(data) {
   var housing = new Array();
@@ -166,7 +279,7 @@ d3.csv("data/nycha_percentiles_joined.csv")
   var count = new Array();
   new ScrollMagic.Scene({triggerElement: "#div7"})
   .on("enter", function (event) { 
-    storymap.setView([40.758700379161006, -73.75652770996094], 11) 
+    storymap.setView([40.738700379161006, -73.77652770996094], 11) 
     storymap.removeLayer(inaccessiblemarker)
   })
   .on("leave", function (event) { 
@@ -196,7 +309,7 @@ d3.csv("data/nycha_percentiles_joined.csv")
         radius: 200,
         weight: 1,
         color: "white",
-      }).bindPopup(data[i].developmen + "<br>Score: " + Math.round(data[i].count_score * 100) / 100)
+      }).bindPopup("<span style = 'font-family: Rubik; line-height: 1.7em' ><span style = 'font-size: 10px; line-height: 2em; font-weight: 900;'>"+ data[i].developmen +  ", " + data[i].borough + "</span><br><span style = 'font-size: 16px;'>" + data[i].under_ten + " grocery stores</span><br>can be reached in a 10 minute walk<br><span style = 'line-height: 2em;'>Percentile: " + Math.round(data[i].count_score * 100) + "</span></span>")
       count.push(countmarker);
       storymap.addLayer(count[i]);
     }
@@ -204,19 +317,20 @@ d3.csv("data/nycha_percentiles_joined.csv")
     colortime = ""
     for (i = 0; i < data.length; i++) {
     if (data[i].time_score <= 0.33 ) {
-      colortime = "lavender";}
+      colortime = "purple";}
     if (data[i].time_score >0.33 && data[i].time_score <= 0.66) {
-      colortime =  "purple";}
+      colortime =  "mediumorchid";}
     if (data[i].time_score > 0.66 ) {
-      colortime = "violet";}
+      colortime = "plum";}
 
+    totaltime = parseFloat(data[i].under_ten) + parseFloat(data[i].ten_twenty) + parseFloat(data[i].twenty_thirty)
     var timemarker = L.circle([data[i].Latitude, data[i].Longitude], {
         fillColor: colortime,
         fillOpacity: 1,  
         radius: 200,
         weight: 1,
         color: "white",
-      }).bindPopup(data[i].developmen + "<br>Score: " + Math.round(data[i].count_score * 100) / 100)
+      }).bindPopup("<span style = 'font-family: Rubik; line-height: 1.7em' ><span style = 'font-size: 10px; line-height: 2em; font-weight: 900;'>"+ data[i].developmen +  ", " + data[i].borough + "</span><br><span style = 'font-size: 16px;'>" + totaltime + " grocery stores</span><br>can be reached in a 30 minute walk<br><br><span style = 'line-height: 1em;'>Average Travel Time: " + data[i].avg_travel_time + " minutes<br>Percentile: " + Math.round(data[i].time_score * 100) + "</span></span>")
       time.push(timemarker);
     }
 
@@ -288,114 +402,6 @@ d3.json("data/30min-iso-all-dissolved.geojson")
 
 })
 
-
-d3.json("data/lower_east.geojson")
-.then(function(data) {
-
-  var lowereastgeojson = data.features
-  var lowereastlayer = new Array();
-
-  new ScrollMagic.Scene({triggerElement: "#div5"})
-    .on("enter", function (event) { 
-      for (i = 0; i < 3; i++) {
-        var lowereastiso = L.geoJSON(lowereastgeojson[i], {
-          color: "royalblue",
-          opacity: 0.6,
-          weight: 0.4,
-          fillOpacity: 0.1,
-          fillColor: "royalblue",
-          zIndex: 200
-        })
-      lowereastlayer.push(lowereastiso);
-      storymap.addLayer(lowereastlayer[i]);}
-      })
-    .on("leave", function (event) { 
-      for (i = 0; i < 3; i++) {storymap.removeLayer(lowereastlayer[i])}
-    }).addTo(controller);
-
-  new ScrollMagic.Scene({triggerElement: "#div6"})
-    .on("enter", function (event) { 
-      for (i = 0; i < 3; i++) {storymap.removeLayer(lowereastlayer[i])}
-    })
-    .on("leave", function (event) { 
-      for (i = 0; i < 3; i++) {storymap.addLayer(lowereastlayer[i])}
-    }).addTo(controller);
-})
-
-d3.json("data/berry.geojson")
-.then(function(data) {
-
-  var berrygeojson = data.features
-  var berrylayer = new Array();
-
-  new ScrollMagic.Scene({triggerElement: "#div6"})
-    .on("enter", function (event) { 
-      for (i = 0; i < 3; i++) {
-        var berryiso = L.geoJSON(berrygeojson[i], {
-          color: "royalblue",
-          opacity: 0.6,
-          weight: 0.4,
-          fillOpacity: 0.1,
-          fillColor: "royalblue",
-          zIndex: 200
-        })
-      berrylayer.push(berryiso);
-      storymap.addLayer(berrylayer[i]);}
-      })
-    .on("leave", function (event) { 
-      for (i = 0; i < 3; i++) {storymap.removeLayer(berrylayer[i])}
-    }).addTo(controller);
-
-  new ScrollMagic.Scene({triggerElement: "#div7"})
-    .on("enter", function (event) { 
-      for (i = 0; i < 3; i++) {storymap.removeLayer(berrylayer[i])}
-    })
-    .on("leave", function (event) { 
-      for (i = 0; i < 3; i++) {storymap.addLayer(berrylayer[i])}
-    }).addTo(controller);
-})
-
-d3.json("data/largest.geojson")
-.then(function(data) {
-  var largestgeojson = data.features[0]
-  var largestlayer = L.geoJSON(largestgeojson, {
-    color: "green",
-    weight: 2,
-    fillOpacity: 0.4,
-    fillColor: "green"
-  })
-  new ScrollMagic.Scene({triggerElement: "#div9"})
-    .on("enter", function (event) { 
-    storymap.addLayer(largestlayer)})
-    .on("leave", function (event) { 
-      storymap.removeLayer(largestlayer)
-    }).addTo(controller);
-})
-
-d3.json("data/breukelen.geojson")
-.then(function(data) {
-
-  var breukelengeojson = data.features
-  var breukelenlayer = new Array();
-
-  new ScrollMagic.Scene({triggerElement: "#div9"})
-    .on("enter", function (event) { 
-      for (i = 0; i < 3; i++) {
-        var breukeleniso = L.geoJSON(breukelengeojson[i], {
-          color: "royalblue",
-          opacity: 0.6,
-          weight: 0.4,
-          fillOpacity: 0.1,
-          fillColor: "royalblue",
-          zIndex: 200
-        })
-      breukelenlayer.push(breukeleniso);
-      storymap.addLayer(breukelenlayer[i]);}
-      })
-    .on("leave", function (event) { 
-      for (i = 0; i < 3; i++) {storymap.removeLayer(breukelenlayer[i])}
-    }).addTo(controller);
-})
 
 
 d3.selectAll("#storymap, #storytext, #centerdiv").style("visibility", "visible")
