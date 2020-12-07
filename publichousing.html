@@ -21,20 +21,26 @@
 	<div>
 	<div class="wrapper">
         <nav>
-          <div class="title">NYC Nutrition Access</div>
+          <div class="title">NYC Nutrition Accessibility</div>
           <ul>
 			<li><a id = "storybutton" class = "active" href="#">Map</a></li>
 			<li><a id = "methodbutton" class="inactive" href="#">Method</a></li>
           </ul>
         </nav>
     </div>   
-	<div id="map"></div>
+	<div id="map">
+		<div class= "model">
+		<object data="cartographic-model.svg" type="image/svg+xml" ></object>
+		</div>
+	</div>
 	<div id="map-container">
 		<div id="storymap"></div></div>
 	<div id="centerdiv" >
 		<div>
 			<h1>Grocery Store Accessibility for Public Housing Developments in NYC<br><br><span style = "font-size: 12px;">scroll through the story • drag to pan map</span></h1>
 		</div>
+	</div>
+	<div id = "graph">
 	</div>
 	<div id="storytext">
 		<div id = "div1"></div>
@@ -55,10 +61,12 @@
 			<p>This public housing development in Dongan Hills, Staten Island has access to:<br><br>0 grocery stores within a 30 minute walk</p>
 		</div>
 		<div id="div7">
-			<p>Graph?</p>
+			<p>The graph on the left shows the frequency of the grocery store counts for the 10 minute radius and the 30 minute radius.<br><br>For example, 36 public housing developments have access to 6 grocery stores in 10 minutes.</p>
+			<button id="tenbutton" class="buttonactive">10 Minutes</button>
+			<button id="thirtybutton" class="button">30 Minutes</button>
 		</div>
 		<div id="div8">
-			<p>In order to compare access among public housing developments, we looked at both the number of grocery stores that exist within the 10 minute radius as well as the travel times to all grocery stores within the 30 minute radius.<br><br>The percentile on the 10 Minutes map is derived from the number of grocery stores that can be accessed in 10 minutes<br><br>The score on the 30 Minutes map is calculated by weighting all of the grocery stores that can be reached in 30 minutes. Grocery stores that are under 10 minutes away are given a weight of 1 while stores that are 10-30 minutes away are weighted on a linearly decreasing scale. This score is normalized to a 0-100 scale.<br><br>The circles are colored according to percentile/score with darker colors indicating a higher percentile/score.<br><br><span style = "font-size: 11px">click on circles for more information</span></p>
+			<p>In order to compare access among public housing developments, we looked at both the number of grocery stores that exist within the 10 minute radius as well as the travel times to all grocery stores within the 30 minute radius.<br><br>The percentile on the 10 Minutes map is derived from the number of grocery stores that can be accessed in 10 minutes<br><br>The score on the 30 Minutes map is calculated by weighting all of the grocery stores that can be reached in 30 minutes. Grocery stores that are under 10 minutes away are given a weight of 1 while stores that are 10-30 minutes away are weighted on a linearly decreasing scale. This score is normalized to a percentage relative to the largest score.<br><br>The circles are colored according to percentile/score with darker colors indicating a higher percentile/score.<br><br><span style = "font-size: 11px">click on circles for more information</span></p>
 			<button id="countbutton" class="buttonactive">10 Minutes</button>
 			<button id="timebutton" class="button">30 Minutes</button>
 		</div>

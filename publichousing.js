@@ -23,6 +23,17 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
 
 //L.svg().addTo(storymap);
 
+tooltip = d3.select("body")
+.append("div")
+.style("position", "absolute")
+.style("z-index", "1000")
+.style("visibility", "hidden")
+.style("opacity","1")
+.style("padding","5px")
+.style("font-family", "'Rubik', sans-serif")
+.style("font-size", "12px")
+.style("color", "black")
+.style("max-width", "200px")
 
 var controller = new ScrollMagic.Controller();
 
@@ -348,6 +359,8 @@ d3.csv("data/nycha_percentiles_joined_2.csv")
       storymap.removeLayer(count[i])
       storymap.removeLayer(time[i])}
     storymap.setView([40.758700379161006, -73.75652770996094], 11) 
+    d3.select("#timebutton").attr("class", "button")
+    d3.select("#countbutton").attr("class", "buttonactive")
   }).addTo(controller);
 
   new ScrollMagic.Scene({triggerElement: "#div9"})
@@ -363,6 +376,140 @@ d3.csv("data/nycha_percentiles_joined_2.csv")
     for(i=0;i<count.length;i++) {storymap.addLayer(count[i])}
     storymap.setView([40.758700379161006, -73.85652770996094], 12)
   }).addTo(controller);
+
+
+//HISTORGRAM
+
+var graphsvgheight = window.innerHeight*0.6
+var graphsvgwidth =  window.innderWidth*0.54
+
+var svg = d3.select("#graph")
+  .append("svg")
+    .attr("width", graphsvgwidth)
+    .attr("height", graphsvgheight)
+  .append("g")
+    .attr("transform","translate(" + 70 + "," + 100 + ")");
+
+
+var x = d3.scaleLinear()
+    .domain([0, d3.max(data, function(d) { return +d.under_ten })]) 
+    .range([0, 450])
+svg.append("g")
+      .attr("transform", "translate("+0+"," + 280 + ")")
+    //  .call(d3.axisBottom(x).ticks(20).tickSize(0))
+      .attr("id", "xaxis")
+      .selectAll("text")
+      .attr("y", 6)
+      .attr("x", 2.5)
+      .style("text-anchor", "start");
+svg.append("g")
+      .append("text")
+      .attr("text-anchor", "end")
+      .attr("x", 470)
+      .attr("y", 315)
+      .text("Number of Grocery Stores")
+      .style("font-size", "12px")
+
+  var y = d3.scaleLinear()
+      .range([280, 0]);
+ //     y.domain([0, d3.max(binsten, function(d) { return d.length; })]);  
+  svg.append("g")
+      .attr("id", "yaxis")
+      .call(d3.axisLeft(y).tickSize(0))
+      .selectAll("text")
+      .attr("x", -6)
+      .style("text-anchor", "end");;
+  svg.append("g")
+      .append("text")
+      .attr("text-anchor", "start")
+      .attr("x", -30)
+      .attr("y", -17)
+      .text("Frequency")
+      .style("font-size", "12px")
+  svg.append("g")
+      .append("text")
+      .attr("text-anchor", "start")
+      .attr("x", -30)
+      .attr("y", -40)
+      .text("Frequency of Grocery Store Counts")
+      .style("font-size", "16px")
+
+x.domain([0, d3.max(data, function(d) { return +parseFloat(d.under_ten) + parseFloat(d.ten_twenty) + parseFloat(d.twenty_thirty) })])    
+svg.select("#xaxis").call(d3.axisBottom(x).ticks(20).tickSize(0))
+var histogram2 = d3.histogram()
+.value(function(d) { return parseFloat(d.under_ten) + parseFloat(d.ten_twenty) + parseFloat(d.twenty_thirty); })  
+.domain(x.domain())  
+.thresholds(x.ticks(60)); 
+var binsthirty = histogram2(data);
+y.domain([0, d3.max(binsthirty, function(d) { return d.length; })])
+svg.select("#yaxis").call(d3.axisLeft(y).tickSize(0))
+
+
+  svg.selectAll("rect-thirty")
+    .data(binsthirty)
+    .enter()
+      .append("rect")
+        .attr("x", 1)
+        .attr("id", "thirtygraph")
+        .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+        .attr("width", function(d) { return x(d.x1) - x(d.x0) -1 ; })
+        .attr("height", function(d) { return 280 - y(d.length); })
+        .style("fill", "olivedrab")
+        .attr("visibility", "hidden")
+
+ 
+  x.domain([0, d3.max(data, function(d) { return +d.under_ten })])    
+  svg.select("#xaxis").call(d3.axisBottom(x).ticks(20).tickSize(0))
+  var histogram = d3.histogram()
+  .value(function(d) { return d.under_ten; })  
+  .domain(x.domain())  
+  .thresholds(x.ticks(60)); 
+  var binsten = histogram(data);
+  y.domain([0, d3.max(binsten, function(d) { return d.length; })])
+  svg.select("#yaxis").call(d3.axisLeft(y).tickSize(0))
+
+  svg.selectAll("rect-ten")
+    .data(binsten)
+    .enter()
+      .append("rect")
+        .attr("x", 1)
+        .attr("id", "tengraph")
+        .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+        .attr("width", function(d) { return x(d.x1) - x(d.x0) -1 ; })
+        .attr("height", function(d) { return 280 - y(d.length); })
+        .style("fill", "indianred")
+        .attr("visibility", "visible")
+
+
+
+  d3.select("#tenbutton").on("click", function() { 
+    d3.select(this).attr("class", "buttonactive")
+    d3.select("#thirtybutton").attr("class", "button")
+
+    x.domain([0, d3.max(data, function(d) { return +d.under_ten })])    
+    svg.select("#xaxis").call(d3.axisBottom(x).ticks(20).tickSize(0))
+    y.domain([0, d3.max(binsten, function(d) { return d.length; })])
+    svg.select("#yaxis").call(d3.axisLeft(y).tickSize(0))
+    svg.selectAll("#tengraph").attr("visibility", "visible")
+    svg.selectAll("#thirtygraph").attr("visibility", "hidden")
+
+  })
+  d3.select("#thirtybutton").on("click", function() { 
+    d3.select(this).attr("class", "buttonactive")
+    d3.select("#tenbutton").attr("class", "button")
+  
+    x.domain([0, d3.max(data, function(d) { return +parseFloat(d.under_ten)+parseFloat(d.ten_twenty)+parseFloat(d.twenty_thirty) })])
+    svg.select("#xaxis").call(d3.axisBottom(x).ticks(10).tickSize(0))
+    y.domain([0, d3.max(binsthirty, function(d) { return d.length; })])
+    svg.select("#yaxis").call(d3.axisLeft(y).tickSize(0))
+    svg.selectAll("#tengraph").attr("visibility", "hidden")
+    svg.selectAll("#thirtygraph").attr("visibility", "visible")
+
+  })
+  
+
+
+
 
 })
 
@@ -403,14 +550,14 @@ d3.select("#map").style("visibility", "hidden")
 d3.select("#methodbutton").on("click", function() { 
 d3.select(this).attr("class", "active")
 d3.select("#map").style("visibility", "visible")
-d3.selectAll("#storymap, #storytext, #centerdiv").style("visibility", "hidden")
+d3.selectAll("#storymap, #storytext, #centerdiv, #graph").style("visibility", "hidden").style("display", "none")
 d3.select("#storybutton").attr("class", "inactive")
 })
 
 d3.select("#storybutton").on("click", function() { 
 d3.select(this).attr("class", "active")
 d3.select("#map").style("visibility", "hidden")
-d3.selectAll("#storymap, #storytext, #centerdiv").style("visibility", "visible")
+d3.selectAll("#storymap, #storytext, #centerdiv, #graph").style("visibility", "visible").style("display", "block")
 d3.select("#methodbutton").attr("class", "inactive")
 })
 
