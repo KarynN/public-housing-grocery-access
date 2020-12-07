@@ -194,9 +194,10 @@ d3.json("data/breukelen.geojson")
 
 new ScrollMagic.Scene({triggerElement: "#div10"})
     .on("enter", function (event) { 
-    storymap.removeLayer(breukelenlayer)})
+      for (i = 0; i < 3; i++) {storymap.removeLayer(breukelenlayer[i])}
+    })
     .on("leave", function (event) { 
-    storymap.addLayer(breukelenlayer)
+    for (i = 0; i < 3; i++) {storymap.addLayer(breukelenlayer[i])}
     }).addTo(controller);
 })
 
