@@ -70,7 +70,7 @@ h1{
 body {
 	margin: 0;
 	padding: 0;
-	font-family: "Rubik";
+	font-family: "Rubik", "sans-serif";
 	}
 
 nav {
@@ -89,8 +89,8 @@ nav {
 nav .title {
 	font-weight: 100;
 	color:black;
-	padding: 22px 0px;
-	height: 60px;
+	padding: 28px 10px;
+	height: 55;
 	float: left;
 	font-size: 20px;
 	}
@@ -131,7 +131,7 @@ nav ul li a.inactive{
 	text-align: center;
 	background: #fff;
 	font-size: 12px;
-	font-family: "Rubik";
+	font-family: "Rubik", "sans-serif";
 	border: 2px solid white;
 	text-decoration: none;
 	color: #000
@@ -146,6 +146,6 @@ nav ul li a.inactive{
 	background: #fff;
 	color: #000;
 	font-size: 12px;
-	font-family: "Rubik";
+	font-family: "Rubik", "sans-serif";
 	border: 2px solid black;
 	}

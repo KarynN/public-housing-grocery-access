@@ -26,40 +26,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
 
 var controller = new ScrollMagic.Controller();
 
-
-/*
-d3.csv("data/nycha_percentiles_joined.csv")
-.then(function(data) {
-
-var points = []
-data.forEach(function(d) {
-points.push({
-  Lat: d.Latitude,
-  Long: d.Longitude,
-  score: d.scores_SCORE,
-  population: d.NYCHA_data_TOTALPOPULATION,
-  development: d.developmen
-});
-});
-
-color = ""
-for (i = 0; i < points.length; i++) {
-if (points[i].score <0.33 ) {
-	color = "#028295";}
-if (points[i].score >0.33 && points[i].score < 0.66) {
-	color =  "#5AB1BB";}
-if (points[i].score > 0.66 ) {
-	color = "#BAF2E9";}
-var circle = L.circle([points[i].Lat, points[i].Long], {
-	fillColor: color,
-	fillOpacity: 1,  
-	radius: 200,
-	weight: 1,
-	color: "white",
-}).bindPopup(points[i].development + "<br>Score: " + Math.round(points[i].score * 100) / 100).addTo(map)
-}
-})*/
-
 d3.csv("data/grocery-2020.csv")
 .then(function(data) {
   var grocery = new Array();
@@ -92,6 +58,18 @@ d3.csv("data/grocery-2020.csv")
       storymap.addLayer(grocery[i]);}  
   }).addTo(controller);
 
+
+  new ScrollMagic.Scene({triggerElement: "#div10"})
+  .on("enter", function (event) { 
+    for(i=0;i<grocery.length;i++) {
+      storymap.addLayer(grocery[i]);}  
+      storymap.setView([40.738700379161006, -73.77652770996094], 11) 
+  })
+  .on("leave", function (event) { 
+    for(i=0;i<grocery.length;i++) {
+      storymap.removeLayer(grocery[i]);}  
+      storymap.setView([40.650958, -73.878416], 14) 
+  }).addTo(controller);
 
 
 })
@@ -181,6 +159,13 @@ d3.json("data/largest.geojson")
     .on("leave", function (event) { 
       storymap.removeLayer(largestlayer)
     }).addTo(controller);
+
+  new ScrollMagic.Scene({triggerElement: "#div10"})
+    .on("enter", function (event) { 
+    storymap.removeLayer(largestlayer)})
+    .on("leave", function (event) { 
+    storymap.addLayer(largestlayer)
+    }).addTo(controller);
 })
 
 d3.json("data/breukelen.geojson")
@@ -206,11 +191,18 @@ d3.json("data/breukelen.geojson")
     .on("leave", function (event) { 
       for (i = 0; i < 3; i++) {storymap.removeLayer(breukelenlayer[i])}
     }).addTo(controller);
+
+new ScrollMagic.Scene({triggerElement: "#div10"})
+    .on("enter", function (event) { 
+    storymap.removeLayer(breukelenlayer)})
+    .on("leave", function (event) { 
+    storymap.addLayer(breukelenlayer)
+    }).addTo(controller);
 })
 
 
 
-d3.csv("data/nycha_percentiles_joined.csv")
+d3.csv("data/nycha_percentiles_joined_2.csv")
 .then(function(data) {
   var housing = new Array();
   new ScrollMagic.Scene({triggerElement: "#div3"})
@@ -297,11 +289,11 @@ d3.csv("data/nycha_percentiles_joined.csv")
     colorcount = ""
     for (i = 0; i < data.length; i++) {
     if (data[i].count_score <= 0.33 ) {
-      colorcount = "#028295";}
+      colorcount = "#BAF2E9";}
     if (data[i].count_score >0.33 && data[i].count_score <= 0.66) {
       colorcount =  "#5AB1BB";}
     if (data[i].count_score > 0.66 ) {
-      colorcount = "#BAF2E9";}
+      colorcount = "#028295";}
   
     var countmarker = L.circle([data[i].Latitude, data[i].Longitude], {
         fillColor: colorcount,
@@ -316,12 +308,12 @@ d3.csv("data/nycha_percentiles_joined.csv")
 
     colortime = ""
     for (i = 0; i < data.length; i++) {
-    if (data[i].time_score <= 0.33 ) {
-      colortime = "purple";}
-    if (data[i].time_score >0.33 && data[i].time_score <= 0.66) {
-      colortime =  "mediumorchid";}
-    if (data[i].time_score > 0.66 ) {
+    if (data[i].time_score_2 <= 0.33 ) {
       colortime = "plum";}
+    if (data[i].time_score_2 >0.33 && data[i].time_score_2 <= 0.66) {
+      colortime =  "mediumorchid";}
+    if (data[i].time_score_2 > 0.66 ) {
+      colortime = "purple";}
 
     totaltime = parseFloat(data[i].under_ten) + parseFloat(data[i].ten_twenty) + parseFloat(data[i].twenty_thirty)
     var timemarker = L.circle([data[i].Latitude, data[i].Longitude], {
@@ -330,7 +322,7 @@ d3.csv("data/nycha_percentiles_joined.csv")
         radius: 200,
         weight: 1,
         color: "white",
-      }).bindPopup("<span style = 'font-family: Rubik; line-height: 1.7em' ><span style = 'font-size: 10px; line-height: 2em; font-weight: 900;'>"+ data[i].developmen +  ", " + data[i].borough + "</span><br><span style = 'font-size: 16px;'>" + totaltime + " grocery stores</span><br>can be reached in a 30 minute walk<br><br><span style = 'line-height: 1em;'>Average Travel Time: " + data[i].avg_travel_time + " minutes<br>Percentile: " + Math.round(data[i].time_score * 100) + "</span></span>")
+      }).bindPopup("<span style = 'font-family: Rubik; line-height: 1.7em' ><span style = 'font-size: 10px; line-height: 2em; font-weight: 900;'>"+ data[i].developmen +  ", " + data[i].borough + "</span><br><span style = 'font-size: 16px;'>" + totaltime + " grocery stores</span><br>can be reached in a 30 minute walk<span style = 'line-height: 1em;'><br>Score: " + Math.round(data[i].time_score_2 * 100) + "</span></span>")
       time.push(timemarker);
     }
 
