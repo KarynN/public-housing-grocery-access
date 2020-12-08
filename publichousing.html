@@ -31,6 +31,7 @@
 	<div id="map">
 		<div class= "model">
 		<object data="cartographic-model.svg" type="image/svg+xml" ></object>
+		<h2><h2>
 		</div>
 	</div>
 	<div id="map-container">
@@ -69,6 +70,9 @@
 			<p>In order to compare access among public housing developments, we looked at both the number of grocery stores that exist within the 10 minute radius as well as the travel times to all grocery stores within the 30 minute radius.<br><br>The percentile on the 10 Minutes map is derived from the number of grocery stores that can be accessed in 10 minutes<br><br>The score on the 30 Minutes map is calculated by weighting all of the grocery stores that can be reached in 30 minutes. Grocery stores that are under 10 minutes away are given a weight of 1 while stores that are 10-30 minutes away are weighted on a linearly decreasing scale. This score is normalized to a percentage relative to the largest score.<br><br>The circles are colored according to percentile/score with darker colors indicating a higher percentile/score.<br><br><span style = "font-size: 11px">click on circles for more information</span></p>
 			<button id="countbutton" class="buttonactive">10 Minutes</button>
 			<button id="timebutton" class="button">30 Minutes</button>
+		</div>
+		<div id = "div81">
+			<p><span style = "text-decoration:underline;">Significance</span><br><br>Though we hope regular citizens use our interactive maps to visualize nutrition access in their localities within NYC, our analysis is primarily intended for public institutions, policymakers and urban planners. Specifically, our goal is to present additional methods of policy analysis, with a focus on accessibility.<br><br>The spatial analysis conducted herein can provide a framework for answering questions such as “how do we more fully capture quality of living in public housing developments,” “how do we measure connectivity from a home to local amenities,” and “how can we propose locations for living residences and commercial retailers that maximize benefit for local communities?” We hope to encourage computational methods as tools for designing accessible cities.<br><br>Our analysis investigates the implementation of a public service, and as such there exists the possibility that any party could use our findings to advocate against public housing. To this end, we emphasize that our analysis does not focus on the salience of public housing efforts, but instead whether the built environment surrounding these developments provide their residents with appropriate food access. It is our belief that housing is a human right, and protecting that right requires ensuring people have access to food as well.</p>
 		</div>
 		<div id="div9">
 			<p><span style = "text-decoration:underline;">What's Missing?</span><br><br>In reducing geometries to points, we lose the ability to consider a housing development’s size while calculating our iso-areas. As a specific example, the Breukelen Houses in Brooklyn have a total area of 2,830,416 square feet which mostly covers the ten minute radius.<br><br>By focusing on time measurements, we inherently ignore factors such as store pricing and sales volume, which are important considerations for accurately describing nutritional access.<br><br>Our analysis investigates the presence of disparate grocery store access, but does not offer suﬀicient quantitative insight towards promoting nutritional equity. As presented, it is not entirely clear as to whether housing developments or grocery stores (or both) have been misplaced or “misplanned.”</p>

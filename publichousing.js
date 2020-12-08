@@ -543,7 +543,6 @@ d3.json("data/30min-iso-all-dissolved.geojson")
 })
 
 
-
 d3.selectAll("#storymap, #storytext, #centerdiv").style("visibility", "visible")
 d3.select("#map").style("visibility", "hidden")
 
